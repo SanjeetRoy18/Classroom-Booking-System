@@ -42,9 +42,9 @@ project/
 
 
 ## 📊 Usage
-- 1. Run the application
-- 2. Follow the menu-driven interface
-- 3. Perform operations such as:
+1. Run the application
+2. Follow the menu-driven interface
+3. Perform operations such as:
 -   ➡️Insert data
 -   ➡️View records
 -   ➡️Update entries
