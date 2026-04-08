@@ -22,7 +22,7 @@ The system is designed to efficiently **store, manage, and retrieve classroom bo
 ---
 
 ## 🛠️ Technologies Used  
-- **Programming Language:** Java / C *(edit if needed)*  
+- **Programming Language:** JavaScript / C *(edit if needed)*  
 - **Database:** Oracle XE / MySQL  
 
 ### Concepts Used:
