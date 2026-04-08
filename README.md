@@ -31,15 +31,6 @@ The system is designed to efficiently **store, manage, and retrieve classroom bo
 - CRUD Operations  
 - File Handling *(if applicable)*  
 
----
-
-## 📂 Project Structure  
-project/
-│── src/ # Source code files
-│── database/ # SQL scripts
-│── docs/ # Project report
-│── README.md # Documentation
- 
  ---
 
 ## 📊Usage
