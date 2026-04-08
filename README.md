@@ -50,14 +50,4 @@ project/
 -   ➡️Update entries
 -   ➡️Delete records
 
-## ScreenShots
-
-- Sign In
-<img width="1353" height="604" alt="image" src="https://github.com/user-attachments/assets/61c2d768-b163-4556-8629-d4b19408576e" />
-
-
-
-
-
-
 
