@@ -39,7 +39,8 @@ project/
 │── database/ # SQL scripts
 │── docs/ # Project report
 │── README.md # Documentation
-
+ 
+ ---
 
 
 
