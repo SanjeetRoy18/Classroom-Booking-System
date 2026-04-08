@@ -1,0 +1,425 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Classroom Booking — Normalized ERD (BCNF)</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:system-ui,-apple-system,sans-serif;background:#f1f5f9;color:#1e293b;min-height:100vh}
+header{background:linear-gradient(135deg,#1d4ed8 0%,#7c3aed 100%);color:#fff;padding:20px 32px;display:flex;align-items:center;gap:16px;box-shadow:0 4px 20px rgba(0,0,0,.25)}
+header h1{font-size:1.35rem;font-weight:700;line-height:1.3}
+header p{font-size:.82rem;opacity:.85;margin-top:3px}
+.bcnf{background:#22c55e;color:#fff;padding:3px 12px;border-radius:999px;font-size:.75rem;font-weight:700;margin-left:auto;white-space:nowrap}
+.legend{display:flex;flex-wrap:wrap;gap:14px;padding:12px 32px;background:#fff;border-bottom:1px solid #e2e8f0;font-size:.78rem;align-items:center}
+.li{display:flex;align-items:center;gap:6px}
+.dot{width:12px;height:12px;border-radius:3px}
+.legend-right{margin-left:auto;font-size:.74rem;color:#64748b}
+.erd-wrap{padding:24px;overflow:auto;background:#f1f5f9}
+.summary{display:grid;grid-template-columns:repeat(auto-fill,minmax(195px,1fr));gap:12px;padding:0 24px 28px}
+.card{background:#fff;border:1px solid #e2e8f0;border-radius:10px;padding:14px 16px;border-left:4px solid #3b82f6}
+.card.p{border-left-color:#8b5cf6}.card.a{border-left-color:#f59e0b}.card.g{border-left-color:#6b7280}.card.t{border-left-color:#0f766e}
+.ct{font-size:.68rem;text-transform:uppercase;letter-spacing:.08em;color:#64748b;font-weight:600}
+.cv{font-size:1.5rem;font-weight:800;color:#1e293b;margin:2px 0}
+.cs{font-size:.73rem;color:#94a3b8}
+</style>
+</head>
+<body>
+<header>
+  <div>
+    <h1>Classroom Booking System — Entity Relationship Diagram</h1>
+    <p>Fully normalized schema &nbsp;·&nbsp; CSE 2241 &nbsp;·&nbsp; Anudeep (240905502) · Sanjeet (240905512) · Soham (240905518)</p>
+  </div>
+  <span class="bcnf">BCNF</span>
+</header>
+<div class="legend">
+  <strong style="margin-right:4px">Table types:</strong>
+  <div class="li"><div class="dot" style="background:#1d4ed8"></div> Lookup / Reference (5)</div>
+  <div class="li"><div class="dot" style="background:#7c3aed"></div> Core Entity (5)</div>
+  <div class="li"><div class="dot" style="background:#b45309"></div> Relationship / Extension (5)</div>
+  <div class="li"><div class="dot" style="background:#0f766e"></div> 1:1 Extension (1)</div>
+  <div class="li"><div class="dot" style="background:#475569"></div> Audit Log (1)</div>
+  <div class="legend-right">Total: 16 tables &nbsp;|&nbsp; 9 new tables added during normalization</div>
+</div>
+<div class="erd-wrap">
+<svg viewBox="0 0 893 700" xmlns="http://www.w3.org/2000/svg" style="width:100%;max-width:893px;display:block;margin:0 auto;background:#f8fafc;border-radius:8px;border:1px solid #e2e8f0">
+<defs>
+  <marker id="arr" markerWidth="7" markerHeight="7" refX="6" refY="3.5" orient="auto">
+    <path d="M0,0.5 L0,6.5 L7,3.5 z" fill="#94a3b8"/>
+  </marker>
+</defs>
+
+<!-- ── RELATIONSHIP LINES (draw first, behind tables) ── -->
+<path d="M180,63 C199,63 199,217 218,217" stroke="#94a3b8" stroke-width="1.3" fill="none" marker-end="url(#arr)"/>
+<rect x="178" y="131" width="44" height="11" rx="3" fill="#ffffffcc"/><text x="199" y="140" text-anchor="middle" font-family="system-ui, -apple-system, Arial, sans-serif" font-size="8.5" fill="#475569">role_id</text>
+<path d="M180,141 C306,141 306,241 432,241" stroke="#94a3b8" stroke-width="1.3" fill="none" marker-end="url(#arr)"/>
+<rect x="285" y="172" width="44" height="11" rx="3" fill="#ffffffcc"/><text x="306" y="181" text-anchor="middle" font-family="system-ui, -apple-system, Arial, sans-serif" font-size="8.5" fill="#475569">type_id</text>
+<path d="M180,219 C306,219 306,336 432,336" stroke="#94a3b8" stroke-width="1.3" fill="none" marker-end="url(#arr)"/>
+<rect x="279" y="268" width="56" height="11" rx="3" fill="#ffffffcc"/><text x="306" y="277" text-anchor="middle" font-family="system-ui, -apple-system, Arial, sans-serif" font-size="8.5" fill="#475569">status_id</text>
+<path d="M180,238 C424,238 424,506 668,506" stroke="#94a3b8" stroke-width="1.3" fill="none" marker-end="url(#arr)"/>
+<path d="M180,297 C424,297 424,371 668,371" stroke="#94a3b8" stroke-width="1.3" fill="none" marker-end="url(#arr)"/>
+<rect x="385" y="325" width="80" height="11" rx="3" fill="#ffffffcc"/><text x="424" y="334" text-anchor="middle" font-family="system-ui, -apple-system, Arial, sans-serif" font-size="8.5" fill="#475569">notif_type_id</text>
+<path d="M180,375 C424,375 424,82 668,82" stroke="#94a3b8" stroke-width="1.3" fill="none" marker-end="url(#arr)"/>
+<rect x="406" y="219" width="38" height="11" rx="3" fill="#ffffffcc"/><text x="424" y="228" text-anchor="middle" font-family="system-ui, -apple-system, Arial, sans-serif" font-size="8.5" fill="#475569">day_id</text>
+<path d="M396,63 C307,63 307,506 218,506" stroke="#94a3b8" stroke-width="1.3" fill="none" marker-end="url(#arr)"/>
+<path d="M396,63 L414,63 L414,506 L396,506" stroke="#94a3b8" stroke-width="1.3" fill="none" marker-end="url(#arr)"/>
+<rect x="393" y="275" width="44" height="11" rx="3" fill="#ffffffcc"/><text x="414" y="284" text-anchor="middle" font-family="system-ui, -apple-system, Arial, sans-serif" font-size="8.5" fill="#475569">dept_id</text>
+<path d="M396,160 C414,160 414,184 432,184" stroke="#94a3b8" stroke-width="1.3" fill="none" marker-end="url(#arr)"/>
+<rect x="384" y="155" width="62" height="11" rx="3" fill="#ffffffcc"/><text x="414" y="164" text-anchor="middle" font-family="system-ui, -apple-system, Arial, sans-serif" font-size="8.5" fill="#475569">faculty_id</text>
+<path d="M396,314 C414,314 414,203 432,203" stroke="#94a3b8" stroke-width="1.3" fill="none" marker-end="url(#arr)"/>
+<rect x="393" y="249" width="44" height="11" rx="3" fill="#ffffffcc"/><text x="414" y="258" text-anchor="middle" font-family="system-ui, -apple-system, Arial, sans-serif" font-size="8.5" fill="#475569">room_id</text>
+<path d="M396,468 C414,468 414,222 432,222" stroke="#94a3b8" stroke-width="1.3" fill="none" marker-end="url(#arr)"/>
+<rect x="387" y="336" width="56" height="11" rx="3" fill="#ffffffcc"/><text x="414" y="345" text-anchor="middle" font-family="system-ui, -apple-system, Arial, sans-serif" font-size="8.5" fill="#475569">course_id</text>
+<path d="M396,584 C414,584 414,317 432,317" stroke="#94a3b8" stroke-width="1.3" fill="none" marker-end="url(#arr)"/>
+<rect x="381" y="453" width="68" height="11" rx="3" fill="#ffffffcc"/><text x="414" y="462" text-anchor="middle" font-family="system-ui, -apple-system, Arial, sans-serif" font-size="8.5" fill="#475569">semester_id</text>
+<path d="M396,603 C414,603 414,471 432,471" stroke="#94a3b8" stroke-width="1.3" fill="none" marker-end="url(#arr)"/>
+<path d="M396,255 C414,255 414,433 432,433" stroke="#94a3b8" stroke-width="1.3" fill="none" marker-end="url(#arr)"/>
+<rect x="384" y="335" width="62" height="11" rx="3" fill="#ffffffcc"/><text x="414" y="344" text-anchor="middle" font-family="system-ui, -apple-system, Arial, sans-serif" font-size="8.5" fill="#475569">student_id</text>
+<path d="M396,487 C414,487 414,452 432,452" stroke="#94a3b8" stroke-width="1.3" fill="none" marker-end="url(#arr)"/>
+<path d="M627,165 C647,165 647,63 668,63" stroke="#94a3b8" stroke-width="1.3" fill="none" marker-end="url(#arr)"/>
+<rect x="638" y="46" width="20" height="11" rx="3" fill="#ffffffcc"/><text x="647" y="55" text-anchor="middle" font-family="system-ui, -apple-system, Arial, sans-serif" font-size="8.5" fill="#475569">1:1</text>
+<path d="M627,184 C647,184 647,179 668,179" stroke="#94a3b8" stroke-width="1.3" fill="none" marker-end="url(#arr)"/>
+<rect x="617" y="172" width="62" height="11" rx="3" fill="#ffffffcc"/><text x="647" y="181" text-anchor="middle" font-family="system-ui, -apple-system, Arial, sans-serif" font-size="8.5" fill="#475569">booking_id</text>
+<path d="M396,236 C532,236 532,198 668,198" stroke="#94a3b8" stroke-width="1.3" fill="none" marker-end="url(#arr)"/>
+<rect x="496" y="208" width="74" height="11" rx="3" fill="#ffffffcc"/><text x="532" y="217" text-anchor="middle" font-family="system-ui, -apple-system, Arial, sans-serif" font-size="8.5" fill="#475569">cancelled_by</text>
+<path d="M396,217 C532,217 532,333 668,333" stroke="#94a3b8" stroke-width="1.3" fill="none" marker-end="url(#arr)"/>
+<path d="M627,355 C647,355 647,487 668,487" stroke="#94a3b8" stroke-width="1.3" fill="none" marker-end="url(#arr)"/>
+<rect x="632" y="412" width="32" height="11" rx="3" fill="#ffffffcc"/><text x="647" y="421" text-anchor="middle" font-family="system-ui, -apple-system, Arial, sans-serif" font-size="8.5" fill="#475569">audit</text>
+
+<!-- ── TABLES ── -->
+<rect x="31" y="31" width="152" height="64" rx="7" fill="#00000015"/>
+<rect x="28" y="28" width="152" height="64" rx="7" fill="#fff" stroke="#93c5fd" stroke-width="1.2"/>
+<rect x="28" y="28" width="152" height="26" rx="7" fill="#1d4ed8"/>
+<rect x="28" y="41" width="152" height="13" fill="#1d4ed8"/>
+<text x="104" y="45" text-anchor="middle" font-family="system-ui, -apple-system, Arial, sans-serif" font-size="11.5" font-weight="700" fill="#fff" letter-spacing="0.5">ROLES</text>
+<line x1="28" y1="54" x2="180" y2="54" stroke="#e8ecf0" stroke-width="0.7"/>
+<text x="36" y="67" font-family="system-ui, -apple-system, Arial, sans-serif" font-size="10" font-weight="700" fill="#b45309">⬡ role_id</text>
+<text x="174" y="67" text-anchor="end" font-family="Courier New, monospace" font-size="8.5" fill="#94a3b8">INT</text>
+<rect x="29" y="73" width="150" height="19" fill="#f8fafc"/>
+<line x1="28" y1="73" x2="180" y2="73" stroke="#e8ecf0" stroke-width="0.7"/>
+<text x="36" y="86" font-family="system-ui, -apple-system, Arial, sans-serif" font-size="10" font-weight="400" fill="#334155">  role_name</text>
+<text x="174" y="86" text-anchor="end" font-family="Courier New, monospace" font-size="8.5" fill="#94a3b8">VARCHAR</text>
+<rect x="31" y="109" width="152" height="64" rx="7" fill="#00000015"/>
+<rect x="28" y="106" width="152" height="64" rx="7" fill="#fff" stroke="#93c5fd" stroke-width="1.2"/>
+<rect x="28" y="106" width="152" height="26" rx="7" fill="#1d4ed8"/>
+<rect x="28" y="119" width="152" height="13" fill="#1d4ed8"/>
+<text x="104" y="123" text-anchor="middle" font-family="system-ui, -apple-system, Arial, sans-serif" font-size="11.5" font-weight="700" fill="#fff" letter-spacing="0.5">BOOKINGTYPES</text>
+<line x1="28" y1="132" x2="180" y2="132" stroke="#e8ecf0" stroke-width="0.7"/>
+<text x="36" y="145" font-family="system-ui, -apple-system, Arial, sans-serif" font-size="10" font-weight="700" fill="#b45309">⬡ type_id</text>
+<text x="174" y="145" text-anchor="end" font-family="Courier New, monospace" font-size="8.5" fill="#94a3b8">INT</text>
+<rect x="29" y="151" width="150" height="19" fill="#f8fafc"/>
+<line x1="28" y1="151" x2="180" y2="151" stroke="#e8ecf0" stroke-width="0.7"/>
+<text x="36" y="164" font-family="system-ui, -apple-system, Arial, sans-serif" font-size="10" font-weight="400" fill="#334155">  type_name</text>
+<text x="174" y="164" text-anchor="end" font-family="Courier New, monospace" font-size="8.5" fill="#94a3b8">VARCHAR</text>
+<rect x="31" y="187" width="152" height="64" rx="7" fill="#00000015"/>
+<rect x="28" y="184" width="152" height="64" rx="7" fill="#fff" stroke="#93c5fd" stroke-width="1.2"/>
+<rect x="28" y="184" width="152" height="26" rx="7" fill="#1d4ed8"/>
+<rect x="28" y="197" width="152" height="13" fill="#1d4ed8"/>
+<text x="104" y="201" text-anchor="middle" font-family="system-ui, -apple-system, Arial, sans-serif" font-size="11.5" font-weight="700" fill="#fff" letter-spacing="0.5">BOOKINGSTATUSES</text>
+<line x1="28" y1="210" x2="180" y2="210" stroke="#e8ecf0" stroke-width="0.7"/>
+<text x="36" y="223" font-family="system-ui, -apple-system, Arial, sans-serif" font-size="10" font-weight="700" fill="#b45309">⬡ status_id</text>
+<text x="174" y="223" text-anchor="end" font-family="Courier New, monospace" font-size="8.5" fill="#94a3b8">INT</text>
+<rect x="29" y="229" width="150" height="19" fill="#f8fafc"/>
+<line x1="28" y1="229" x2="180" y2="229" stroke="#e8ecf0" stroke-width="0.7"/>
+<text x="36" y="242" font-family="system-ui, -apple-system, Arial, sans-serif" font-size="10" font-weight="400" fill="#334155">  status_name</text>
+<text x="174" y="242" text-anchor="end" font-family="Courier New, monospace" font-size="8.5" fill="#94a3b8">VARCHAR</text>
+<rect x="31" y="265" width="152" height="64" rx="7" fill="#00000015"/>
+<rect x="28" y="262" width="152" height="64" rx="7" fill="#fff" stroke="#93c5fd" stroke-width="1.2"/>
+<rect x="28" y="262" width="152" height="26" rx="7" fill="#1d4ed8"/>
+<rect x="28" y="275" width="152" height="13" fill="#1d4ed8"/>
+<text x="104" y="279" text-anchor="middle" font-family="system-ui, -apple-system, Arial, sans-serif" font-size="11.5" font-weight="700" fill="#fff" letter-spacing="0.5">NOTIFTYPES</text>
+<line x1="28" y1="288" x2="180" y2="288" stroke="#e8ecf0" stroke-width="0.7"/>
+<text x="36" y="301" font-family="system-ui, -apple-system, Arial, sans-serif" font-size="10" font-weight="700" fill="#b45309">⬡ notif_type_id</text>
+<text x="174" y="301" text-anchor="end" font-family="Courier New, monospace" font-size="8.5" fill="#94a3b8">INT</text>
+<rect x="29" y="307" width="150" height="19" fill="#f8fafc"/>
+<line x1="28" y1="307" x2="180" y2="307" stroke="#e8ecf0" stroke-width="0.7"/>
+<text x="36" y="320" font-family="system-ui, -apple-system, Arial, sans-serif" font-size="10" font-weight="400" fill="#334155">  notif_type_name</text>
+<text x="174" y="320" text-anchor="end" font-family="Courier New, monospace" font-size="8.5" fill="#94a3b8">VARCHAR</text>
+<rect x="31" y="343" width="152" height="64" rx="7" fill="#00000015"/>
+<rect x="28" y="340" width="152" height="64" rx="7" fill="#fff" stroke="#93c5fd" stroke-width="1.2"/>
+<rect x="28" y="340" width="152" height="26" rx="7" fill="#1d4ed8"/>
+<rect x="28" y="353" width="152" height="13" fill="#1d4ed8"/>
+<text x="104" y="357" text-anchor="middle" font-family="system-ui, -apple-system, Arial, sans-serif" font-size="11.5" font-weight="700" fill="#fff" letter-spacing="0.5">DAYSOFWEEK</text>
+<line x1="28" y1="366" x2="180" y2="366" stroke="#e8ecf0" stroke-width="0.7"/>
+<text x="36" y="379" font-family="system-ui, -apple-system, Arial, sans-serif" font-size="10" font-weight="700" fill="#b45309">⬡ day_id</text>
+<text x="174" y="379" text-anchor="end" font-family="Courier New, monospace" font-size="8.5" fill="#94a3b8">INT</text>
+<rect x="29" y="385" width="150" height="19" fill="#f8fafc"/>
+<line x1="28" y1="385" x2="180" y2="385" stroke="#e8ecf0" stroke-width="0.7"/>
+<text x="36" y="398" font-family="system-ui, -apple-system, Arial, sans-serif" font-size="10" font-weight="400" fill="#334155">  day_name</text>
+<text x="174" y="398" text-anchor="end" font-family="Courier New, monospace" font-size="8.5" fill="#94a3b8">VARCHAR</text>
+<rect x="221" y="31" width="178" height="83" rx="7" fill="#00000015"/>
+<rect x="218" y="28" width="178" height="83" rx="7" fill="#fff" stroke="#c4b5fd" stroke-width="1.2"/>
+<rect x="218" y="28" width="178" height="26" rx="7" fill="#7c3aed"/>
+<rect x="218" y="41" width="178" height="13" fill="#7c3aed"/>
+<text x="307" y="45" text-anchor="middle" font-family="system-ui, -apple-system, Arial, sans-serif" font-size="11.5" font-weight="700" fill="#fff" letter-spacing="0.5">DEPARTMENTS</text>
+<line x1="218" y1="54" x2="396" y2="54" stroke="#e8ecf0" stroke-width="0.7"/>
+<text x="226" y="67" font-family="system-ui, -apple-system, Arial, sans-serif" font-size="10" font-weight="700" fill="#b45309">⬡ dept_id</text>
+<text x="390" y="67" text-anchor="end" font-family="Courier New, monospace" font-size="8.5" fill="#94a3b8">INT</text>
+<rect x="219" y="73" width="176" height="19" fill="#f8fafc"/>
+<line x1="218" y1="73" x2="396" y2="73" stroke="#e8ecf0" stroke-width="0.7"/>
+<text x="226" y="86" font-family="system-ui, -apple-system, Arial, sans-serif" font-size="10" font-weight="400" fill="#334155">  dept_name</text>
+<text x="390" y="86" text-anchor="end" font-family="Courier New, monospace" font-size="8.5" fill="#94a3b8">VARCHAR</text>
+<line x1="218" y1="92" x2="396" y2="92" stroke="#e8ecf0" stroke-width="0.7"/>
+<text x="226" y="105" font-family="system-ui, -apple-system, Arial, sans-serif" font-size="10" font-weight="400" fill="#334155">  building</text>
+<text x="390" y="105" text-anchor="end" font-family="Courier New, monospace" font-size="8.5" fill="#94a3b8">VARCHAR</text>
+<rect x="221" y="128" width="178" height="140" rx="7" fill="#00000015"/>
+<rect x="218" y="125" width="178" height="140" rx="7" fill="#fff" stroke="#c4b5fd" stroke-width="1.2"/>
+<rect x="218" y="125" width="178" height="26" rx="7" fill="#7c3aed"/>
+<rect x="218" y="138" width="178" height="13" fill="#7c3aed"/>
+<text x="307" y="142" text-anchor="middle" font-family="system-ui, -apple-system, Arial, sans-serif" font-size="11.5" font-weight="700" fill="#fff" letter-spacing="0.5">USERS</text>
+<line x1="218" y1="151" x2="396" y2="151" stroke="#e8ecf0" stroke-width="0.7"/>
+<text x="226" y="164" font-family="system-ui, -apple-system, Arial, sans-serif" font-size="10" font-weight="700" fill="#b45309">⬡ user_id</text>
+<text x="390" y="164" text-anchor="end" font-family="Courier New, monospace" font-size="8.5" fill="#94a3b8">INT</text>
+<rect x="219" y="170" width="176" height="19" fill="#f8fafc"/>
+<line x1="218" y1="170" x2="396" y2="170" stroke="#e8ecf0" stroke-width="0.7"/>
+<text x="226" y="183" font-family="system-ui, -apple-system, Arial, sans-serif" font-size="10" font-weight="400" fill="#334155">  name</text>
+<text x="390" y="183" text-anchor="end" font-family="Courier New, monospace" font-size="8.5" fill="#94a3b8">VARCHAR</text>
+<line x1="218" y1="189" x2="396" y2="189" stroke="#e8ecf0" stroke-width="0.7"/>
+<text x="226" y="202" font-family="system-ui, -apple-system, Arial, sans-serif" font-size="10" font-weight="400" fill="#334155">  email</text>
+<text x="390" y="202" text-anchor="end" font-family="Courier New, monospace" font-size="8.5" fill="#94a3b8">VARCHAR</text>
+<rect x="219" y="208" width="176" height="19" fill="#f8fafc"/>
+<line x1="218" y1="208" x2="396" y2="208" stroke="#e8ecf0" stroke-width="0.7"/>
+<text x="226" y="221" font-family="system-ui, -apple-system, Arial, sans-serif" font-size="10" font-weight="400" fill="#1d4ed8">→ role_id</text>
+<text x="390" y="221" text-anchor="end" font-family="Courier New, monospace" font-size="8.5" fill="#94a3b8">INT</text>
+<line x1="218" y1="227" x2="396" y2="227" stroke="#e8ecf0" stroke-width="0.7"/>
+<text x="226" y="240" font-family="system-ui, -apple-system, Arial, sans-serif" font-size="10" font-weight="400" fill="#334155">  phone</text>
+<text x="390" y="240" text-anchor="end" font-family="Courier New, monospace" font-size="8.5" fill="#94a3b8">VARCHAR</text>
+<rect x="219" y="246" width="176" height="19" fill="#f8fafc"/>
+<line x1="218" y1="246" x2="396" y2="246" stroke="#e8ecf0" stroke-width="0.7"/>
+<text x="226" y="259" font-family="system-ui, -apple-system, Arial, sans-serif" font-size="10" font-weight="400" fill="#334155">  created_at</text>
+<text x="390" y="259" text-anchor="end" font-family="Courier New, monospace" font-size="8.5" fill="#94a3b8">DATETIME</text>
+<rect x="221" y="282" width="178" height="140" rx="7" fill="#00000015"/>
+<rect x="218" y="279" width="178" height="140" rx="7" fill="#fff" stroke="#c4b5fd" stroke-width="1.2"/>
+<rect x="218" y="279" width="178" height="26" rx="7" fill="#7c3aed"/>
+<rect x="218" y="292" width="178" height="13" fill="#7c3aed"/>
+<text x="307" y="296" text-anchor="middle" font-family="system-ui, -apple-system, Arial, sans-serif" font-size="11.5" font-weight="700" fill="#fff" letter-spacing="0.5">CLASSROOMS</text>
+<line x1="218" y1="305" x2="396" y2="305" stroke="#e8ecf0" stroke-width="0.7"/>
+<text x="226" y="318" font-family="system-ui, -apple-system, Arial, sans-serif" font-size="10" font-weight="700" fill="#b45309">⬡ room_id</text>
+<text x="390" y="318" text-anchor="end" font-family="Courier New, monospace" font-size="8.5" fill="#94a3b8">INT</text>
+<rect x="219" y="324" width="176" height="19" fill="#f8fafc"/>
+<line x1="218" y1="324" x2="396" y2="324" stroke="#e8ecf0" stroke-width="0.7"/>
+<text x="226" y="337" font-family="system-ui, -apple-system, Arial, sans-serif" font-size="10" font-weight="400" fill="#334155">  building</text>
+<text x="390" y="337" text-anchor="end" font-family="Courier New, monospace" font-size="8.5" fill="#94a3b8">VARCHAR</text>
+<line x1="218" y1="343" x2="396" y2="343" stroke="#e8ecf0" stroke-width="0.7"/>
+<text x="226" y="356" font-family="system-ui, -apple-system, Arial, sans-serif" font-size="10" font-weight="400" fill="#334155">  room_number</text>
+<text x="390" y="356" text-anchor="end" font-family="Courier New, monospace" font-size="8.5" fill="#94a3b8">VARCHAR</text>
+<rect x="219" y="362" width="176" height="19" fill="#f8fafc"/>
+<line x1="218" y1="362" x2="396" y2="362" stroke="#e8ecf0" stroke-width="0.7"/>
+<text x="226" y="375" font-family="system-ui, -apple-system, Arial, sans-serif" font-size="10" font-weight="400" fill="#334155">  capacity</text>
+<text x="390" y="375" text-anchor="end" font-family="Courier New, monospace" font-size="8.5" fill="#94a3b8">INT</text>
+<line x1="218" y1="381" x2="396" y2="381" stroke="#e8ecf0" stroke-width="0.7"/>
+<text x="226" y="394" font-family="system-ui, -apple-system, Arial, sans-serif" font-size="10" font-weight="400" fill="#334155">  has_projector</text>
+<text x="390" y="394" text-anchor="end" font-family="Courier New, monospace" font-size="8.5" fill="#94a3b8">BOOL</text>
+<rect x="219" y="400" width="176" height="19" fill="#f8fafc"/>
+<line x1="218" y1="400" x2="396" y2="400" stroke="#e8ecf0" stroke-width="0.7"/>
+<text x="226" y="413" font-family="system-ui, -apple-system, Arial, sans-serif" font-size="10" font-weight="400" fill="#334155">  has_ac</text>
+<text x="390" y="413" text-anchor="end" font-family="Courier New, monospace" font-size="8.5" fill="#94a3b8">BOOL</text>
+<rect x="221" y="436" width="178" height="102" rx="7" fill="#00000015"/>
+<rect x="218" y="433" width="178" height="102" rx="7" fill="#fff" stroke="#c4b5fd" stroke-width="1.2"/>
+<rect x="218" y="433" width="178" height="26" rx="7" fill="#7c3aed"/>
+<rect x="218" y="446" width="178" height="13" fill="#7c3aed"/>
+<text x="307" y="450" text-anchor="middle" font-family="system-ui, -apple-system, Arial, sans-serif" font-size="11.5" font-weight="700" fill="#fff" letter-spacing="0.5">COURSES</text>
+<line x1="218" y1="459" x2="396" y2="459" stroke="#e8ecf0" stroke-width="0.7"/>
+<text x="226" y="472" font-family="system-ui, -apple-system, Arial, sans-serif" font-size="10" font-weight="700" fill="#b45309">⬡ course_id</text>
+<text x="390" y="472" text-anchor="end" font-family="Courier New, monospace" font-size="8.5" fill="#94a3b8">VARCHAR</text>
+<rect x="219" y="478" width="176" height="19" fill="#f8fafc"/>
+<line x1="218" y1="478" x2="396" y2="478" stroke="#e8ecf0" stroke-width="0.7"/>
+<text x="226" y="491" font-family="system-ui, -apple-system, Arial, sans-serif" font-size="10" font-weight="400" fill="#334155">  title</text>
+<text x="390" y="491" text-anchor="end" font-family="Courier New, monospace" font-size="8.5" fill="#94a3b8">VARCHAR</text>
+<line x1="218" y1="497" x2="396" y2="497" stroke="#e8ecf0" stroke-width="0.7"/>
+<text x="226" y="510" font-family="system-ui, -apple-system, Arial, sans-serif" font-size="10" font-weight="400" fill="#1d4ed8">→ dept_id</text>
+<text x="390" y="510" text-anchor="end" font-family="Courier New, monospace" font-size="8.5" fill="#94a3b8">INT</text>
+<rect x="219" y="516" width="176" height="19" fill="#f8fafc"/>
+<line x1="218" y1="516" x2="396" y2="516" stroke="#e8ecf0" stroke-width="0.7"/>
+<text x="226" y="529" font-family="system-ui, -apple-system, Arial, sans-serif" font-size="10" font-weight="400" fill="#334155">  credits</text>
+<text x="390" y="529" text-anchor="end" font-family="Courier New, monospace" font-size="8.5" fill="#94a3b8">INT</text>
+<rect x="221" y="552" width="178" height="121" rx="7" fill="#00000015"/>
+<rect x="218" y="549" width="178" height="121" rx="7" fill="#fff" stroke="#c4b5fd" stroke-width="1.2"/>
+<rect x="218" y="549" width="178" height="26" rx="7" fill="#7c3aed"/>
+<rect x="218" y="562" width="178" height="13" fill="#7c3aed"/>
+<text x="307" y="566" text-anchor="middle" font-family="system-ui, -apple-system, Arial, sans-serif" font-size="11.5" font-weight="700" fill="#fff" letter-spacing="0.5">SEMESTERS</text>
+<line x1="218" y1="575" x2="396" y2="575" stroke="#e8ecf0" stroke-width="0.7"/>
+<text x="226" y="588" font-family="system-ui, -apple-system, Arial, sans-serif" font-size="10" font-weight="700" fill="#b45309">⬡ semester_id</text>
+<text x="390" y="588" text-anchor="end" font-family="Courier New, monospace" font-size="8.5" fill="#94a3b8">INT</text>
+<rect x="219" y="594" width="176" height="19" fill="#f8fafc"/>
+<line x1="218" y1="594" x2="396" y2="594" stroke="#e8ecf0" stroke-width="0.7"/>
+<text x="226" y="607" font-family="system-ui, -apple-system, Arial, sans-serif" font-size="10" font-weight="400" fill="#334155">  semester_name</text>
+<text x="390" y="607" text-anchor="end" font-family="Courier New, monospace" font-size="8.5" fill="#94a3b8">VARCHAR</text>
+<line x1="218" y1="613" x2="396" y2="613" stroke="#e8ecf0" stroke-width="0.7"/>
+<text x="226" y="626" font-family="system-ui, -apple-system, Arial, sans-serif" font-size="10" font-weight="400" fill="#334155">  year</text>
+<text x="390" y="626" text-anchor="end" font-family="Courier New, monospace" font-size="8.5" fill="#94a3b8">YEAR</text>
+<rect x="219" y="632" width="176" height="19" fill="#f8fafc"/>
+<line x1="218" y1="632" x2="396" y2="632" stroke="#e8ecf0" stroke-width="0.7"/>
+<text x="226" y="645" font-family="system-ui, -apple-system, Arial, sans-serif" font-size="10" font-weight="400" fill="#334155">  start_date</text>
+<text x="390" y="645" text-anchor="end" font-family="Courier New, monospace" font-size="8.5" fill="#94a3b8">DATE</text>
+<line x1="218" y1="651" x2="396" y2="651" stroke="#e8ecf0" stroke-width="0.7"/>
+<text x="226" y="664" font-family="system-ui, -apple-system, Arial, sans-serif" font-size="10" font-weight="400" fill="#334155">  end_date</text>
+<text x="390" y="664" text-anchor="end" font-family="Courier New, monospace" font-size="8.5" fill="#94a3b8">DATE</text>
+<rect x="435" y="133" width="195" height="235" rx="7" fill="#00000015"/>
+<rect x="432" y="130" width="195" height="235" rx="7" fill="#fff" stroke="#fcd34d" stroke-width="1.2"/>
+<rect x="432" y="130" width="195" height="26" rx="7" fill="#b45309"/>
+<rect x="432" y="143" width="195" height="13" fill="#b45309"/>
+<text x="529" y="147" text-anchor="middle" font-family="system-ui, -apple-system, Arial, sans-serif" font-size="11.5" font-weight="700" fill="#fff" letter-spacing="0.5">BOOKINGS</text>
+<line x1="432" y1="156" x2="627" y2="156" stroke="#e8ecf0" stroke-width="0.7"/>
+<text x="440" y="169" font-family="system-ui, -apple-system, Arial, sans-serif" font-size="10" font-weight="700" fill="#b45309">⬡ booking_id</text>
+<text x="621" y="169" text-anchor="end" font-family="Courier New, monospace" font-size="8.5" fill="#94a3b8">INT</text>
+<rect x="433" y="175" width="193" height="19" fill="#f8fafc"/>
+<line x1="432" y1="175" x2="627" y2="175" stroke="#e8ecf0" stroke-width="0.7"/>
+<text x="440" y="188" font-family="system-ui, -apple-system, Arial, sans-serif" font-size="10" font-weight="400" fill="#1d4ed8">→ faculty_id</text>
+<text x="621" y="188" text-anchor="end" font-family="Courier New, monospace" font-size="8.5" fill="#94a3b8">INT</text>
+<line x1="432" y1="194" x2="627" y2="194" stroke="#e8ecf0" stroke-width="0.7"/>
+<text x="440" y="207" font-family="system-ui, -apple-system, Arial, sans-serif" font-size="10" font-weight="400" fill="#1d4ed8">→ room_id</text>
+<text x="621" y="207" text-anchor="end" font-family="Courier New, monospace" font-size="8.5" fill="#94a3b8">INT</text>
+<rect x="433" y="213" width="193" height="19" fill="#f8fafc"/>
+<line x1="432" y1="213" x2="627" y2="213" stroke="#e8ecf0" stroke-width="0.7"/>
+<text x="440" y="226" font-family="system-ui, -apple-system, Arial, sans-serif" font-size="10" font-weight="400" fill="#1d4ed8">→ course_id</text>
+<text x="621" y="226" text-anchor="end" font-family="Courier New, monospace" font-size="8.5" fill="#94a3b8">VARCHAR</text>
+<line x1="432" y1="232" x2="627" y2="232" stroke="#e8ecf0" stroke-width="0.7"/>
+<text x="440" y="245" font-family="system-ui, -apple-system, Arial, sans-serif" font-size="10" font-weight="400" fill="#1d4ed8">→ booking_type_id</text>
+<text x="621" y="245" text-anchor="end" font-family="Courier New, monospace" font-size="8.5" fill="#94a3b8">INT</text>
+<rect x="433" y="251" width="193" height="19" fill="#f8fafc"/>
+<line x1="432" y1="251" x2="627" y2="251" stroke="#e8ecf0" stroke-width="0.7"/>
+<text x="440" y="264" font-family="system-ui, -apple-system, Arial, sans-serif" font-size="10" font-weight="400" fill="#334155">  booking_date</text>
+<text x="621" y="264" text-anchor="end" font-family="Courier New, monospace" font-size="8.5" fill="#94a3b8">DATE</text>
+<line x1="432" y1="270" x2="627" y2="270" stroke="#e8ecf0" stroke-width="0.7"/>
+<text x="440" y="283" font-family="system-ui, -apple-system, Arial, sans-serif" font-size="10" font-weight="400" fill="#334155">  start_time</text>
+<text x="621" y="283" text-anchor="end" font-family="Courier New, monospace" font-size="8.5" fill="#94a3b8">TIME</text>
+<rect x="433" y="289" width="193" height="19" fill="#f8fafc"/>
+<line x1="432" y1="289" x2="627" y2="289" stroke="#e8ecf0" stroke-width="0.7"/>
+<text x="440" y="302" font-family="system-ui, -apple-system, Arial, sans-serif" font-size="10" font-weight="400" fill="#334155">  end_time</text>
+<text x="621" y="302" text-anchor="end" font-family="Courier New, monospace" font-size="8.5" fill="#94a3b8">TIME</text>
+<line x1="432" y1="308" x2="627" y2="308" stroke="#e8ecf0" stroke-width="0.7"/>
+<text x="440" y="321" font-family="system-ui, -apple-system, Arial, sans-serif" font-size="10" font-weight="400" fill="#1d4ed8">→ semester_id</text>
+<text x="621" y="321" text-anchor="end" font-family="Courier New, monospace" font-size="8.5" fill="#94a3b8">INT</text>
+<rect x="433" y="327" width="193" height="19" fill="#f8fafc"/>
+<line x1="432" y1="327" x2="627" y2="327" stroke="#e8ecf0" stroke-width="0.7"/>
+<text x="440" y="340" font-family="system-ui, -apple-system, Arial, sans-serif" font-size="10" font-weight="400" fill="#1d4ed8">→ status_id</text>
+<text x="621" y="340" text-anchor="end" font-family="Courier New, monospace" font-size="8.5" fill="#94a3b8">INT</text>
+<line x1="432" y1="346" x2="627" y2="346" stroke="#e8ecf0" stroke-width="0.7"/>
+<text x="440" y="359" font-family="system-ui, -apple-system, Arial, sans-serif" font-size="10" font-weight="400" fill="#334155">  created_at</text>
+<text x="621" y="359" text-anchor="end" font-family="Courier New, monospace" font-size="8.5" fill="#94a3b8">DATETIME</text>
+<rect x="435" y="382" width="195" height="102" rx="7" fill="#00000015"/>
+<rect x="432" y="379" width="195" height="102" rx="7" fill="#fff" stroke="#fcd34d" stroke-width="1.2"/>
+<rect x="432" y="379" width="195" height="26" rx="7" fill="#b45309"/>
+<rect x="432" y="392" width="195" height="13" fill="#b45309"/>
+<text x="529" y="396" text-anchor="middle" font-family="system-ui, -apple-system, Arial, sans-serif" font-size="11.5" font-weight="700" fill="#fff" letter-spacing="0.5">ENROLLMENTS</text>
+<line x1="432" y1="405" x2="627" y2="405" stroke="#e8ecf0" stroke-width="0.7"/>
+<text x="440" y="418" font-family="system-ui, -apple-system, Arial, sans-serif" font-size="10" font-weight="700" fill="#b45309">⬡ enrollment_id</text>
+<text x="621" y="418" text-anchor="end" font-family="Courier New, monospace" font-size="8.5" fill="#94a3b8">INT</text>
+<rect x="433" y="424" width="193" height="19" fill="#f8fafc"/>
+<line x1="432" y1="424" x2="627" y2="424" stroke="#e8ecf0" stroke-width="0.7"/>
+<text x="440" y="437" font-family="system-ui, -apple-system, Arial, sans-serif" font-size="10" font-weight="400" fill="#1d4ed8">→ student_id</text>
+<text x="621" y="437" text-anchor="end" font-family="Courier New, monospace" font-size="8.5" fill="#94a3b8">INT</text>
+<line x1="432" y1="443" x2="627" y2="443" stroke="#e8ecf0" stroke-width="0.7"/>
+<text x="440" y="456" font-family="system-ui, -apple-system, Arial, sans-serif" font-size="10" font-weight="400" fill="#1d4ed8">→ course_id</text>
+<text x="621" y="456" text-anchor="end" font-family="Courier New, monospace" font-size="8.5" fill="#94a3b8">VARCHAR</text>
+<rect x="433" y="462" width="193" height="19" fill="#f8fafc"/>
+<line x1="432" y1="462" x2="627" y2="462" stroke="#e8ecf0" stroke-width="0.7"/>
+<text x="440" y="475" font-family="system-ui, -apple-system, Arial, sans-serif" font-size="10" font-weight="400" fill="#1d4ed8">→ semester_id</text>
+<text x="621" y="475" text-anchor="end" font-family="Courier New, monospace" font-size="8.5" fill="#94a3b8">INT</text>
+<rect x="671" y="31" width="195" height="83" rx="7" fill="#00000015"/>
+<rect x="668" y="28" width="195" height="83" rx="7" fill="#fff" stroke="#5eead4" stroke-width="1.2"/>
+<rect x="668" y="28" width="195" height="26" rx="7" fill="#0f766e"/>
+<rect x="668" y="41" width="195" height="13" fill="#0f766e"/>
+<text x="765" y="45" text-anchor="middle" font-family="system-ui, -apple-system, Arial, sans-serif" font-size="11.5" font-weight="700" fill="#fff" letter-spacing="0.5">PERIODICDETAILS</text>
+<line x1="668" y1="54" x2="863" y2="54" stroke="#e8ecf0" stroke-width="0.7"/>
+<text x="676" y="67" font-family="system-ui, -apple-system, Arial, sans-serif" font-size="10" font-weight="700" fill="#b45309">⬡ booking_id</text>
+<text x="857" y="67" text-anchor="end" font-family="Courier New, monospace" font-size="8.5" fill="#94a3b8">INT</text>
+<rect x="669" y="73" width="193" height="19" fill="#f8fafc"/>
+<line x1="668" y1="73" x2="863" y2="73" stroke="#e8ecf0" stroke-width="0.7"/>
+<text x="676" y="86" font-family="system-ui, -apple-system, Arial, sans-serif" font-size="10" font-weight="400" fill="#1d4ed8">→ day_id</text>
+<text x="857" y="86" text-anchor="end" font-family="Courier New, monospace" font-size="8.5" fill="#94a3b8">INT</text>
+<line x1="668" y1="92" x2="863" y2="92" stroke="#e8ecf0" stroke-width="0.7"/>
+<text x="676" y="105" font-family="system-ui, -apple-system, Arial, sans-serif" font-size="10" font-weight="400" fill="#334155">  end_date</text>
+<text x="857" y="105" text-anchor="end" font-family="Courier New, monospace" font-size="8.5" fill="#94a3b8">DATE</text>
+<rect x="671" y="128" width="195" height="140" rx="7" fill="#00000015"/>
+<rect x="668" y="125" width="195" height="140" rx="7" fill="#fff" stroke="#fcd34d" stroke-width="1.2"/>
+<rect x="668" y="125" width="195" height="26" rx="7" fill="#b45309"/>
+<rect x="668" y="138" width="195" height="13" fill="#b45309"/>
+<text x="765" y="142" text-anchor="middle" font-family="system-ui, -apple-system, Arial, sans-serif" font-size="11.5" font-weight="700" fill="#fff" letter-spacing="0.5">CANCELLATIONS</text>
+<line x1="668" y1="151" x2="863" y2="151" stroke="#e8ecf0" stroke-width="0.7"/>
+<text x="676" y="164" font-family="system-ui, -apple-system, Arial, sans-serif" font-size="10" font-weight="700" fill="#b45309">⬡ cancel_id</text>
+<text x="857" y="164" text-anchor="end" font-family="Courier New, monospace" font-size="8.5" fill="#94a3b8">INT</text>
+<rect x="669" y="170" width="193" height="19" fill="#f8fafc"/>
+<line x1="668" y1="170" x2="863" y2="170" stroke="#e8ecf0" stroke-width="0.7"/>
+<text x="676" y="183" font-family="system-ui, -apple-system, Arial, sans-serif" font-size="10" font-weight="400" fill="#1d4ed8">→ booking_id</text>
+<text x="857" y="183" text-anchor="end" font-family="Courier New, monospace" font-size="8.5" fill="#94a3b8">INT</text>
+<line x1="668" y1="189" x2="863" y2="189" stroke="#e8ecf0" stroke-width="0.7"/>
+<text x="676" y="202" font-family="system-ui, -apple-system, Arial, sans-serif" font-size="10" font-weight="400" fill="#1d4ed8">→ cancelled_by</text>
+<text x="857" y="202" text-anchor="end" font-family="Courier New, monospace" font-size="8.5" fill="#94a3b8">INT</text>
+<rect x="669" y="208" width="193" height="19" fill="#f8fafc"/>
+<line x1="668" y1="208" x2="863" y2="208" stroke="#e8ecf0" stroke-width="0.7"/>
+<text x="676" y="221" font-family="system-ui, -apple-system, Arial, sans-serif" font-size="10" font-weight="400" fill="#334155">  cancelled_date</text>
+<text x="857" y="221" text-anchor="end" font-family="Courier New, monospace" font-size="8.5" fill="#94a3b8">DATE</text>
+<line x1="668" y1="227" x2="863" y2="227" stroke="#e8ecf0" stroke-width="0.7"/>
+<text x="676" y="240" font-family="system-ui, -apple-system, Arial, sans-serif" font-size="10" font-weight="400" fill="#334155">  reason</text>
+<text x="857" y="240" text-anchor="end" font-family="Courier New, monospace" font-size="8.5" fill="#94a3b8">VARCHAR</text>
+<rect x="669" y="246" width="193" height="19" fill="#f8fafc"/>
+<line x1="668" y1="246" x2="863" y2="246" stroke="#e8ecf0" stroke-width="0.7"/>
+<text x="676" y="259" font-family="system-ui, -apple-system, Arial, sans-serif" font-size="10" font-weight="400" fill="#334155">  cancelled_at</text>
+<text x="857" y="259" text-anchor="end" font-family="Courier New, monospace" font-size="8.5" fill="#94a3b8">DATETIME</text>
+<rect x="671" y="282" width="195" height="140" rx="7" fill="#00000015"/>
+<rect x="668" y="279" width="195" height="140" rx="7" fill="#fff" stroke="#fcd34d" stroke-width="1.2"/>
+<rect x="668" y="279" width="195" height="26" rx="7" fill="#b45309"/>
+<rect x="668" y="292" width="195" height="13" fill="#b45309"/>
+<text x="765" y="296" text-anchor="middle" font-family="system-ui, -apple-system, Arial, sans-serif" font-size="11.5" font-weight="700" fill="#fff" letter-spacing="0.5">NOTIFICATIONS</text>
+<line x1="668" y1="305" x2="863" y2="305" stroke="#e8ecf0" stroke-width="0.7"/>
+<text x="676" y="318" font-family="system-ui, -apple-system, Arial, sans-serif" font-size="10" font-weight="700" fill="#b45309">⬡ notif_id</text>
+<text x="857" y="318" text-anchor="end" font-family="Courier New, monospace" font-size="8.5" fill="#94a3b8">INT</text>
+<rect x="669" y="324" width="193" height="19" fill="#f8fafc"/>
+<line x1="668" y1="324" x2="863" y2="324" stroke="#e8ecf0" stroke-width="0.7"/>
+<text x="676" y="337" font-family="system-ui, -apple-system, Arial, sans-serif" font-size="10" font-weight="400" fill="#1d4ed8">→ user_id</text>
+<text x="857" y="337" text-anchor="end" font-family="Courier New, monospace" font-size="8.5" fill="#94a3b8">INT</text>
+<line x1="668" y1="343" x2="863" y2="343" stroke="#e8ecf0" stroke-width="0.7"/>
+<text x="676" y="356" font-family="system-ui, -apple-system, Arial, sans-serif" font-size="10" font-weight="400" fill="#334155">  message</text>
+<text x="857" y="356" text-anchor="end" font-family="Courier New, monospace" font-size="8.5" fill="#94a3b8">VARCHAR</text>
+<rect x="669" y="362" width="193" height="19" fill="#f8fafc"/>
+<line x1="668" y1="362" x2="863" y2="362" stroke="#e8ecf0" stroke-width="0.7"/>
+<text x="676" y="375" font-family="system-ui, -apple-system, Arial, sans-serif" font-size="10" font-weight="400" fill="#1d4ed8">→ notif_type_id</text>
+<text x="857" y="375" text-anchor="end" font-family="Courier New, monospace" font-size="8.5" fill="#94a3b8">INT</text>
+<line x1="668" y1="381" x2="863" y2="381" stroke="#e8ecf0" stroke-width="0.7"/>
+<text x="676" y="394" font-family="system-ui, -apple-system, Arial, sans-serif" font-size="10" font-weight="400" fill="#334155">  is_read</text>
+<text x="857" y="394" text-anchor="end" font-family="Courier New, monospace" font-size="8.5" fill="#94a3b8">BOOL</text>
+<rect x="669" y="400" width="193" height="19" fill="#f8fafc"/>
+<line x1="668" y1="400" x2="863" y2="400" stroke="#e8ecf0" stroke-width="0.7"/>
+<text x="676" y="413" font-family="system-ui, -apple-system, Arial, sans-serif" font-size="10" font-weight="400" fill="#334155">  created_at</text>
+<text x="857" y="413" text-anchor="end" font-family="Courier New, monospace" font-size="8.5" fill="#94a3b8">DATETIME</text>
+<rect x="671" y="436" width="195" height="121" rx="7" fill="#00000015"/>
+<rect x="668" y="433" width="195" height="121" rx="7" fill="#fff" stroke="#cbd5e1" stroke-width="1.2"/>
+<rect x="668" y="433" width="195" height="26" rx="7" fill="#475569"/>
+<rect x="668" y="446" width="195" height="13" fill="#475569"/>
+<text x="765" y="450" text-anchor="middle" font-family="system-ui, -apple-system, Arial, sans-serif" font-size="11.5" font-weight="700" fill="#fff" letter-spacing="0.5">BOOKING_AUDIT</text>
+<line x1="668" y1="459" x2="863" y2="459" stroke="#e8ecf0" stroke-width="0.7"/>
+<text x="676" y="472" font-family="system-ui, -apple-system, Arial, sans-serif" font-size="10" font-weight="700" fill="#b45309">⬡ audit_id</text>
+<text x="857" y="472" text-anchor="end" font-family="Courier New, monospace" font-size="8.5" fill="#94a3b8">INT</text>
+<rect x="669" y="478" width="193" height="19" fill="#f8fafc"/>
+<line x1="668" y1="478" x2="863" y2="478" stroke="#e8ecf0" stroke-width="0.7"/>
+<text x="676" y="491" font-family="system-ui, -apple-system, Arial, sans-serif" font-size="10" font-weight="400" fill="#1d4ed8">→ booking_id</text>
+<text x="857" y="491" text-anchor="end" font-family="Courier New, monospace" font-size="8.5" fill="#94a3b8">INT</text>
+<line x1="668" y1="497" x2="863" y2="497" stroke="#e8ecf0" stroke-width="0.7"/>
+<text x="676" y="510" font-family="system-ui, -apple-system, Arial, sans-serif" font-size="10" font-weight="400" fill="#1d4ed8">→ old_status_id</text>
+<text x="857" y="510" text-anchor="end" font-family="Courier New, monospace" font-size="8.5" fill="#94a3b8">INT</text>
+<rect x="669" y="516" width="193" height="19" fill="#f8fafc"/>
+<line x1="668" y1="516" x2="863" y2="516" stroke="#e8ecf0" stroke-width="0.7"/>
+<text x="676" y="529" font-family="system-ui, -apple-system, Arial, sans-serif" font-size="10" font-weight="400" fill="#1d4ed8">→ new_status_id</text>
+<text x="857" y="529" text-anchor="end" font-family="Courier New, monospace" font-size="8.5" fill="#94a3b8">INT</text>
+<line x1="668" y1="535" x2="863" y2="535" stroke="#e8ecf0" stroke-width="0.7"/>
+<text x="676" y="548" font-family="system-ui, -apple-system, Arial, sans-serif" font-size="10" font-weight="400" fill="#334155">  changed_at</text>
+<text x="857" y="548" text-anchor="end" font-family="Courier New, monospace" font-size="8.5" fill="#94a3b8">DATETIME</text>
+
+</svg>
+</div>
+
+<div class="summary">
+  <div class="card"><div class="ct">Total Tables</div><div class="cv">16</div><div class="cs">vs 7 in original UNF</div></div>
+  <div class="card"><div class="ct">Lookup Tables</div><div class="cv">5</div><div class="cs">Roles, BookingTypes, BookingStatuses, NotifTypes, DaysOfWeek</div></div>
+  <div class="card p"><div class="ct">Core Entities</div><div class="cv">5</div><div class="cs">Users, Classrooms, Courses, Departments, Semesters</div></div>
+  <div class="card a"><div class="ct">Relationship Tables</div><div class="cv">5</div><div class="cs">Bookings, Enrollments, PeriodicDetails, Cancellations, Notifications</div></div>
+  <div class="card t"><div class="ct">1:1 Extension</div><div class="cv">1</div><div class="cs">PeriodicDetails (periodic bookings only)</div></div>
+  <div class="card g"><div class="ct">Audit Table</div><div class="cv">1</div><div class="cs">Booking_Audit (trigger-populated)</div></div>
+  <div class="card"><div class="ct">Active Triggers</div><div class="cv">5</div><div class="cs">double-booking, role check, periodic date, auto-notify, audit</div></div>
+  <div class="card p"><div class="ct">Views</div><div class="cv">3</div><div class="cs">vw_active_bookings, vw_course_enrollment, vw_cancellation_log</div></div>
+  <div class="card a"><div class="ct">Stored Procedures</div><div class="cv">4</div><div class="cs">sp_make_booking, sp_cancel_lecture, sp_room_schedule, sp_notify_students</div></div>
+</div>
+</body>
+</html>
