@@ -42,5 +42,9 @@ project/
  
  ---
 
+## 📊Usage
+- Efficiently manages schedules
+- Keeps every user updated
 
+---
 
