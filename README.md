@@ -53,15 +53,8 @@ project/
 ## ScreenShots
 <img width="1353" height="604" alt="image" src="https://github.com/user-attachments/assets/61c2d768-b163-4556-8629-d4b19408576e" />
 
-<img width="1353" height="604" alt="image" src="https://github.com/user-attachments/assets/33e0d7dd-8eaf-4dfa-abd6-48c434a4e5d0" />
+<img width="1353" height="604" alt="image" src="https://github.com/user-attachments/assets/5fc2d283-4deb-4954-a1d9-bc6273848080" />
 
-<img width="1353" height="604" alt="image" src="https://github.com/user-attachments/assets/ce4ed1a1-4bdc-4233-9905-bf7b87ddc345" />
-
-<img width="1353" height="604" alt="image" src="https://github.com/user-attachments/assets/1b1c6e47-1bcb-4597-a7df-1e34a7412336" />
-
-<img width="1353" height="604" alt="image" src="https://github.com/user-attachments/assets/a705691c-9718-46a3-88d9-645f6e00ed0b" />
-
-<img width="1353" height="604" alt="image" src="https://github.com/user-attachments/assets/7a2dbc30-7b55-4aed-9518-67794e128f54" />
 
 
 
